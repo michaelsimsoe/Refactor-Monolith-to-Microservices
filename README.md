@@ -2,11 +2,12 @@
 
 <img width="100%" alt="Skjermbilde 2021-01-14 kl  20 39 52" src="https://user-images.githubusercontent.com/16366210/104640402-bb315900-56a8-11eb-9b41-e47c28d8eb73.png">
 
-## Project objective
+## Udacity Cloud Develpoer Nanodegree
+### Project objective
 
 Refactor an existing monolith application and deploy it as microservices in Kubernetes on AWS.
 
-## Course details - Refactor Monolith to Microservices
+### Course details - Refactor Monolith to Microservices
 
 [Cloud Developer - NANODEGREE PROGRAM](https://www.udacity.com/course/cloud-developer-nanodegree--nd9990)
 
@@ -16,10 +17,22 @@ Refactor an existing monolith application and deploy it as microservices in Kube
 * Set up each microservice to be run in its own Docker container
 * Set up a CI/CD pipeline to deploy the containers to Kubernetes
 
-## Udagram Image Filtering Application
+### Udagram Image Filtering Application
 
 >_Udagram is a simple cloud application developed alongside the Udacity Cloud Engineering Nanodegree. It allows users to register and log into a web client, post photos to the feed, and process photos using an image filtering microservice._
 
+## Instructions
+This application consists of three projects. Two api end-points:
+1. Udagram Feed service - Node microservice
+2. Udagram User service - Node microservice
+
+And one frontend:
+
+3. Udagram frontend - Angular/Ionic application
+----------
+### Local setup
+
+#### Docker
 
 #### Environment Script
 A file named `set_env.sh` has been prepared as an optional tool to help you configure these variables on your local development environment.
