@@ -1,18 +1,38 @@
 version: "3"
 services:
  reverse-proxy:
-  build:
-    context: ./udagram-proxy
   image: michaelsimsoe/reverse-proxy 
+  ports:
+     - 8080:8080
+  restart: always
+  depends_on:
+    - api-user
+    - api-feed 
  api-user:
-  build:
-    context: ./udagram-api-users
   image: michaelsimsoe/udagram-api-users
+  environment:
+    DB_USER: $DB_USER
+    DB_PASSWORD: $DB_PASSWORD 
+    DB_NAME: $DB_NAME 
+    DB_HOST: $DB_HOST 
+    AWS_REGION: $AWS_REGION 
+    AWS_PROFILE: $AWS_PROFILE 
+    AWS_BUCKET: $AWS_BUCKET
+    JWT_SECRET: $JWT_SECRET
+    URL: "http://localhost:8100"
  api-feed:
-  build:
-    context: ./udagram-api-feed 
   image: michaelsimsoe/udagram-api-feed
+  environment:
+    DB_USER: $DB_USER
+    DB_PASSWORD: $DB_PASSWORD 
+    DB_NAME: $DB_NAME 
+    DB_HOST: $DB_HOST 
+    AWS_REGION: $AWS_REGION 
+    AWS_PROFILE: $AWS_PROFILE 
+    AWS_BUCKET: $AWS_BUCKET
+    JWT_SECRET: $JWT_SECRET
+    URL: "http://localhost:8100"
  frontend:
-  build:
-    context: ./udagram-frontend 
   image: michaelsimsoe/udagram-frontend
+  ports:
+   - "8100:80"
