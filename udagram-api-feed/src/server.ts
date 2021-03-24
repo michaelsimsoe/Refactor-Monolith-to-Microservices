@@ -1,5 +1,7 @@
 import cors from 'cors';
 import express from 'express';
+import dotenv from 'dotenv';
+dotenv.config();
 import { sequelize } from './sequelize';
 
 import { IndexRouter } from './controllers/v0/index.router';
@@ -10,7 +12,13 @@ import { V0_FEED_MODELS } from './controllers/v0/model.index';
 
 (async () => {
   await sequelize.addModels(V0_FEED_MODELS);
-  await sequelize.sync();
+
+  try {
+    console.log("Adding")
+    await sequelize.sync();
+  } catch (e) {
+    console.log(e);
+  }
 
   const app = express();
   const port = process.env.PORT || 8080;

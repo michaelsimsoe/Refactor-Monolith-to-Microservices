@@ -31,9 +31,15 @@ And one frontend:
 3. Udagram frontend - Angular/Ionic application
 ----------
 ### Local setup
-
+You need to set up an S3 Bucket and a DB (RDS, postgress is used for this application)
 #### Docker
+```bash
+docker-compose -f ./docker-compose-build.yml build --parallel 
+```
 
+```bash
+docker-compose -f ./docker-compose-build.yml push
+```
 #### Environment Script
 A file named `set_env.sh` has been prepared as an optional tool to help you configure these variables on your local development environment.
  
