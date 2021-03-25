@@ -144,3 +144,7 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+udagram-deployment/aws-secret.yaml
+udagram-deployment/env-configmap.yaml
+udagram-deployment/env-secret.yaml
