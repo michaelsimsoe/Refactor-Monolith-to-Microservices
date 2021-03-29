@@ -13,6 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const sequelize_1 = require("./sequelize");
 const index_router_1 = require("./controllers/v0/index.router");
 const body_parser_1 = __importDefault(require("body-parser"));
@@ -20,7 +22,12 @@ const config_1 = require("./config/config");
 const model_index_1 = require("./controllers/v0/model.index");
 (() => __awaiter(this, void 0, void 0, function* () {
     yield sequelize_1.sequelize.addModels(model_index_1.V0_FEED_MODELS);
-    yield sequelize_1.sequelize.sync();
+    try {
+        yield sequelize_1.sequelize.sync();
+    }
+    catch (e) {
+        console.log(e);
+    }
     const app = express_1.default();
     const port = process.env.PORT || 8080;
     app.use(body_parser_1.default.json());
@@ -42,7 +49,7 @@ const model_index_1 = require("./controllers/v0/model.index");
         res.send('/api/v0/');
     }));
     // Start the Server
-    app.listen(port, () => {
+    app.listen(3000, () => {
         console.log(`server running ${config_1.config.url}`);
         console.log(`press CTRL+C to stop server`);
     });

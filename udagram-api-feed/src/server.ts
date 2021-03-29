@@ -14,7 +14,6 @@ import { V0_FEED_MODELS } from './controllers/v0/model.index';
   await sequelize.addModels(V0_FEED_MODELS);
 
   try {
-    console.log("Adding")
     await sequelize.sync();
   } catch (e) {
     console.log(e);

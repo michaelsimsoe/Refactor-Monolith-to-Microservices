@@ -32,7 +32,9 @@ function requireAuth(req, res, next) {
     const token = tokenBearer[1];
     return jwt.verify(token, c.config.jwt.secret, (err, decoded) => {
         if (err) {
-            return res.status(500).send({ auth: false, message: 'Failed to authenticate.' });
+            return res
+                .status(500)
+                .send({ auth: false, message: 'Failed to authenticate.' });
         }
         return next();
     });
@@ -40,6 +42,8 @@ function requireAuth(req, res, next) {
 exports.requireAuth = requireAuth;
 // Get all feed items
 router.get('/', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let date = new Date();
+    console.log(`${date}: fetching all feed items.`);
     const items = yield FeedItem_1.FeedItem.findAndCountAll({ order: [['id', 'DESC']] });
     items.rows.map((item) => {
         if (item.url) {
@@ -51,6 +55,8 @@ router.get('/', (req, res) => __awaiter(this, void 0, void 0, function* () {
 // Get a feed resource
 router.get('/:id', (req, res) => __awaiter(this, void 0, void 0, function* () {
     const { id } = req.params;
+    let date = new Date();
+    console.log(`${date}: fetching feed item ${id}`);
     const item = yield FeedItem_1.FeedItem.findByPk(id);
     res.send(item);
 }));
@@ -65,7 +71,9 @@ router.post('/', requireAuth, (req, res) => __awaiter(this, void 0, void 0, func
     const caption = req.body.caption;
     const fileName = req.body.url; // same as S3 key name
     if (!caption) {
-        return res.status(400).send({ message: 'Caption is required or malformed.' });
+        return res
+            .status(400)
+            .send({ message: 'Caption is required or malformed.' });
     }
     if (!fileName) {
         return res.status(400).send({ message: 'File url is required.' });

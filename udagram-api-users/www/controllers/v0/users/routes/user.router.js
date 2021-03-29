@@ -16,6 +16,8 @@ router.use('/auth', auth_router_1.AuthRouter);
 router.get('/');
 router.get('/:id', (req, res) => __awaiter(this, void 0, void 0, function* () {
     const { id } = req.params;
+    let date = new Date();
+    console.log(`${date}: fetching user ${id}.`);
     const item = yield User_1.User.findByPk(id);
     res.send(item);
 }));
