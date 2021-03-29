@@ -61,13 +61,17 @@ router.get('/:id', (req, res) => __awaiter(this, void 0, void 0, function* () {
     res.send(item);
 }));
 // Get a signed url to put a new item in the bucket
-router.get('/signed-url/:fileName', requireAuth, (req, res) => __awaiter(this, void 0, void 0, function* () {
+router.get('/signed-url/:fileName', 
+// requireAuth,
+(req, res) => __awaiter(this, void 0, void 0, function* () {
     const { fileName } = req.params;
     const url = AWS.getPutSignedUrl(fileName);
     res.status(201).send({ url: url });
 }));
 // Create feed with metadata
-router.post('/', requireAuth, (req, res) => __awaiter(this, void 0, void 0, function* () {
+router.post('/', 
+// requireAuth,
+(req, res) => __awaiter(this, void 0, void 0, function* () {
     const caption = req.body.caption;
     const fileName = req.body.url; // same as S3 key name
     if (!caption) {

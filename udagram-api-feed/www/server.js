@@ -49,7 +49,7 @@ const model_index_1 = require("./controllers/v0/model.index");
         res.send('/api/v0/');
     }));
     // Start the Server
-    app.listen(3000, () => {
+    app.listen(port, () => {
         console.log(`server running ${config_1.config.url}`);
         console.log(`press CTRL+C to stop server`);
     });
