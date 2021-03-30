@@ -20,13 +20,20 @@ before_install:
   - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
   - chmod +x ./kubectl
   - sudo mv ./kubectl /usr/local/bin/kubectl
-  - echo docker-compose -v
-  - echo ls -a
+  - sudo mv ./kubectl /usr/local/bin/kubectl
+  - mkdir ${HOME}/.kube
+  - echo "$KUBE_CONFIG" | base64 --decode > ${HOME}/.kube/config # include to travis console env variable :cat ${HOME}/.kube/config | base64 | pbcopy
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 install:
   - docker-compose -f docker-compose-build.yml build --parallel
-
-# Tasks to perform after the process is successful. Formatting the Docker username and password as below enables you to programmatically log in without having the password exposed in logs.
-after_success:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker-compose -f ./docker-compose-build.yml push 
+
+script:
+  - kubectl get pods
+  - kubectl set image deployments/api-feed api-feed=michaels/udagram-api-feed:latest
+  - kubectl set image deployments/api-user api-user=michaels/udagram-api--user:latest
+  - kubectl set image deployments/frontend frontend=michaels/udagram-frontend:latest
+  - kubectl set image deployments/reverse-proxy reverse-proxy=michaels/reverse-proxy:latest
+
+  
